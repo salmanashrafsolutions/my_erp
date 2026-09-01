@@ -14,17 +14,31 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
   actions,
 }) => {
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2.5">
+        <h1
+          className="text-2xl font-bold tracking-tight flex items-center gap-2.5"
+          style={{ color: 'var(--text-main)' }}
+        >
           {title}
           {badge && (
-            <span className="text-xs px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/30 font-normal">
+            <span
+              className="text-xs px-2.5 py-0.5 rounded-full border font-normal font-mono"
+              style={{
+                backgroundColor: 'var(--badge-bg)',
+                color: 'var(--badge-text)',
+                borderColor: 'var(--border-color)',
+              }}
+            >
               {badge}
             </span>
           )}
         </h1>
-        {subtitle && <p className="text-xs text-slate-400 mt-1">{subtitle}</p>}
+        {subtitle && (
+          <p className="text-xs mt-1" style={{ color: 'var(--text-muted)' }}>
+            {subtitle}
+          </p>
+        )}
       </div>
 
       {actions && <div className="flex items-center gap-3">{actions}</div>}

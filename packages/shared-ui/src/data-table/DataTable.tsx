@@ -42,26 +42,43 @@ export function DataTable<T>({
   return (
     <div
       className={cn(
-        'bg-slate-900/90 border border-slate-800 rounded-xl p-5 shadow-sm space-y-4',
+        'border rounded-xl p-5 shadow-sm space-y-4 transition-all',
         className
       )}
+      style={{
+        backgroundColor: 'var(--bg-surface)',
+        borderColor: 'var(--border-color)',
+      }}
     >
       {/* Header Bar */}
       {(title || actionText) && (
-        <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div
+          className="flex items-center justify-between border-b pb-3"
+          style={{ borderColor: 'var(--border-color)' }}
+        >
           <div>
             {title && (
-              <h3 className="text-sm font-semibold text-white flex items-center gap-2">
-                {Icon && <Icon className="w-4 h-4 text-blue-400" />}
+              <h3
+                className="text-sm font-semibold flex items-center gap-2"
+                style={{ color: 'var(--text-main)' }}
+              >
+                {Icon && (
+                  <Icon className="w-4 h-4" style={{ color: 'var(--accent-primary)' }} />
+                )}
                 {title}
               </h3>
             )}
-            {subtitle && <p className="text-[11px] text-slate-400 mt-0.5">{subtitle}</p>}
+            {subtitle && (
+              <p className="text-[11px] mt-0.5" style={{ color: 'var(--text-muted)' }}>
+                {subtitle}
+              </p>
+            )}
           </div>
           {actionText && (
             <button
               onClick={onAction}
-              className="text-xs text-blue-400 hover:text-blue-300 font-medium transition-colors cursor-pointer"
+              className="text-xs font-medium transition-colors cursor-pointer hover:opacity-80"
+              style={{ color: 'var(--accent-primary)' }}
             >
               {actionText} &rarr;
             </button>
@@ -73,7 +90,13 @@ export function DataTable<T>({
       <div className="overflow-x-auto">
         <table className="w-full text-left text-xs border-collapse">
           <thead>
-            <tr className="border-b border-slate-800 text-slate-400 font-medium uppercase text-[10px] tracking-wider">
+            <tr
+              className="border-b font-medium uppercase text-[10px] tracking-wider"
+              style={{
+                borderColor: 'var(--border-color)',
+                color: 'var(--text-muted)',
+              }}
+            >
               {columns.map((col) => (
                 <th
                   key={col.key}
@@ -89,16 +112,27 @@ export function DataTable<T>({
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-800/60 font-mono">
+          <tbody
+            className="divide-y font-mono"
+            style={{ borderColor: 'var(--border-color)' }}
+          >
             {isLoading ? (
               <tr>
-                <td colSpan={columns.length} className="py-8 text-center text-slate-400">
+                <td
+                  colSpan={columns.length}
+                  className="py-8 text-center"
+                  style={{ color: 'var(--text-muted)' }}
+                >
                   Loading data...
                 </td>
               </tr>
             ) : data.length === 0 ? (
               <tr>
-                <td colSpan={columns.length} className="py-8 text-center text-slate-500">
+                <td
+                  colSpan={columns.length}
+                  className="py-8 text-center"
+                  style={{ color: 'var(--text-dim)' }}
+                >
                   {emptyMessage}
                 </td>
               </tr>
@@ -108,9 +142,13 @@ export function DataTable<T>({
                   key={keyExtractor(item)}
                   onClick={() => onRowClick && onRowClick(item)}
                   className={cn(
-                    'hover:bg-slate-800/40 transition-colors',
+                    'transition-colors hover:opacity-95',
                     onRowClick && 'cursor-pointer'
                   )}
+                  style={{
+                    backgroundColor: 'transparent',
+                    borderBottomColor: 'var(--border-color)',
+                  }}
                 >
                   {columns.map((col) => {
                     const value = (item as Record<string, unknown>)[col.key];
@@ -123,6 +161,7 @@ export function DataTable<T>({
                           col.align === 'center' && 'text-center',
                           col.className
                         )}
+                        style={{ color: 'var(--text-main)' }}
                       >
                         {col.render ? col.render(item) : String(value ?? '-')}
                       </td>

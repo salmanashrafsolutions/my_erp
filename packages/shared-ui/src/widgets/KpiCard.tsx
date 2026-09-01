@@ -26,40 +26,69 @@ export const KpiCard: React.FC<KpiCardProps> = ({
   return (
     <div
       className={cn(
-        'bg-slate-900/90 border border-slate-800 rounded-xl p-5 flex flex-col justify-between hover:border-slate-700 transition-all shadow-sm',
+        'rounded-xl p-5 border flex flex-col justify-between transition-all shadow-sm hover:shadow-md',
         className
       )}
+      style={{
+        backgroundColor: 'var(--bg-surface)',
+        borderColor: 'var(--border-color)',
+      }}
     >
       <div className="flex items-center justify-between mb-3">
-        <span className="text-xs font-medium text-slate-400 uppercase tracking-wider">
+        <span
+          className="text-xs font-medium uppercase tracking-wider"
+          style={{ color: 'var(--text-muted)' }}
+        >
           {title}
         </span>
         <div className="flex items-center gap-2">
           {badge && (
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-950 text-blue-400 border border-blue-800/50">
+            <span
+              className="text-[10px] font-mono px-2 py-0.5 rounded border"
+              style={{
+                backgroundColor: 'var(--badge-bg)',
+                color: 'var(--badge-text)',
+                borderColor: 'var(--border-color)',
+              }}
+            >
               {badge}
             </span>
           )}
-          <div className="p-2 rounded-lg bg-slate-800/80 text-slate-300 border border-slate-700/50">
+          <div
+            className="p-2 rounded-lg border"
+            style={{
+              backgroundColor: 'var(--bg-subtle)',
+              borderColor: 'var(--border-color)',
+              color: 'var(--accent-primary)',
+            }}
+          >
             <Icon className="w-4 h-4" />
           </div>
         </div>
       </div>
 
-      <div className="text-2xl font-bold font-mono text-white tracking-tight">
+      <div
+        className="text-2xl font-bold font-mono tracking-tight"
+        style={{ color: 'var(--text-main)' }}
+      >
         {value}
       </div>
 
       {(subtitle || change) && (
-        <div className="flex items-center justify-between mt-3 pt-3 border-t border-slate-800/80 text-xs">
-          <span className="text-slate-400 truncate">{subtitle}</span>
+        <div
+          className="flex items-center justify-between mt-3 pt-3 border-t text-xs"
+          style={{ borderColor: 'var(--border-color)' }}
+        >
+          <span className="truncate" style={{ color: 'var(--text-muted)' }}>
+            {subtitle}
+          </span>
           {change && (
             <span
               className={cn(
                 'flex items-center font-mono text-[11px] font-medium shrink-0 ml-2',
-                trend === 'up' && 'text-emerald-400',
-                trend === 'down' && 'text-rose-400',
-                trend === 'neutral' && 'text-blue-400'
+                trend === 'up' && 'text-emerald-500',
+                trend === 'down' && 'text-rose-500',
+                trend === 'neutral' && 'text-blue-500'
               )}
             >
               {trend === 'up' && <ArrowUpRight className="w-3.5 h-3.5 mr-0.5" />}
