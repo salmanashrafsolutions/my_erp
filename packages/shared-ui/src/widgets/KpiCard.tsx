@@ -26,7 +26,7 @@ export const KpiCard: React.FC<KpiCardProps> = ({
   return (
     <div
       className={cn(
-        'rounded-xl p-5 border flex flex-col justify-between transition-all shadow-sm hover:shadow-md',
+        'rounded-xl p-5 border flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-lg hover:-translate-y-0.5 group cursor-default',
         className
       )}
       style={{
@@ -55,7 +55,7 @@ export const KpiCard: React.FC<KpiCardProps> = ({
             </span>
           )}
           <div
-            className="p-2 rounded-lg border"
+            className="p-2 rounded-lg border transition-transform duration-300 group-hover:scale-110"
             style={{
               backgroundColor: 'var(--bg-subtle)',
               borderColor: 'var(--border-color)',
