@@ -18,114 +18,78 @@ interface SequenceRow {
   prefix: string;
   nextVal: number;
   padding: number;
-  sample: string;
 }
 
-const sequenceColumns: Column<SequenceRow>[] = [
+const columns: Column<SequenceRow>[] = [
   {
     key: 'code',
     header: 'Document Type',
-    render: (row) => <span className="font-semibold text-cyan-400">{row.code}</span>,
+    render: (r) => <span className="font-semibold text-cyan-400">{r.code}</span>,
   },
   {
     key: 'prefix',
     header: 'Prefix Format',
-    render: (row) => <span style={{ color: 'var(--text-muted)' }}>{row.prefix}</span>,
+    render: (r) => <span style={{ color: 'var(--text-muted)' }}>{r.prefix}</span>,
   },
   {
     key: 'nextVal',
-    header: 'Next Counter Value',
+    header: 'Next Counter',
     align: 'right',
-    render: (row) => <span>{row.nextVal}</span>,
+    render: (r) => <span>{r.nextVal}</span>,
   },
   {
     key: 'padding',
-    header: 'Padding Width',
+    header: 'Padding',
     align: 'center',
-    render: (row) => <span>{row.padding} digits</span>,
-  },
-  {
-    key: 'sample',
-    header: 'Generated Sample',
-    align: 'center',
-    render: (row) => <StatusBadge status="CONFIRMED" label={row.sample} />,
+    render: (r) => <span>{r.padding} digits</span>,
   },
 ];
 
 const sequences: SequenceRow[] = [
-  { code: 'SALES_ORDER', prefix: 'SO-ISB-2026-', nextVal: 43, padding: 5, sample: 'SO-ISB-2026-00043' },
-  { code: 'SALES_INVOICE', prefix: 'INV-2026-', nextVal: 104, padding: 5, sample: 'INV-2026-00104' },
-  { code: 'PURCHASE_ORDER', prefix: 'PO-2026-', nextVal: 16, padding: 4, sample: 'PO-2026-0016' },
-  { code: 'GOODS_RECEIPT_NOTE', prefix: 'GRN-2026-', nextVal: 13, padding: 4, sample: 'GRN-2026-0013' },
-  { code: 'JOURNAL_ENTRY', prefix: 'JE-2026-', nextVal: 90, padding: 5, sample: 'JE-2026-00090' },
+  { code: 'SALES_ORDER', prefix: 'SO-ISB-2026-', nextVal: 43, padding: 5 },
+  { code: 'SALES_INVOICE', prefix: 'INV-2026-', nextVal: 104, padding: 5 },
+  { code: 'PURCHASE_ORDER', prefix: 'PO-2026-', nextVal: 16, padding: 4 },
+  { code: 'GOODS_RECEIPT_NOTE', prefix: 'GRN-2026-', nextVal: 13, padding: 4 },
+  { code: 'JOURNAL_ENTRY', prefix: 'JE-2026-', nextVal: 90, padding: 5 },
 ];
 
 const auditItems: AuditItem[] = [
   { id: 'AUTH-001', action: 'UPDATE', resource: 'auth_role', actor: 'Salman Ashraf', time: '1m ago', detail: 'Updated permissions for Sales Manager role' },
   { id: 'SEQ-004', action: 'CREATE', resource: 'core_number_sequence', actor: 'Salman Ashraf', time: '15m ago', detail: 'Configured new sequence for RMA Returns' },
-  { id: 'TEN-001', action: 'UPDATE', resource: 'tenants_branch', actor: 'Salman Ashraf', time: '1h ago', detail: 'Activated London Operating Branch (LON-01)' },
 ];
 
-export default function AdminModulePage() {
+export default function AdminPage() {
   return (
-    <AppShell>
+    <AppShell activeModule="admin">
       <PageHeader
-        title="Admin, Governance & Security Console"
+        title="Admin & Governance"
         badge="Module 05"
-        subtitle="Multi-Tenancy, RBAC Permissions, Document Number Sequences, and Real-time Audit Trail."
+        subtitle="Multi-Tenancy, RBAC Permissions, Number Sequences, and Real-time Audit Logs."
         actions={
           <button
-            className="px-3.5 py-2 text-white text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-opacity hover:opacity-90 shadow-sm cursor-pointer"
+            className="px-3.5 py-2 text-white text-xs font-semibold rounded-lg flex items-center gap-1.5 shadow-xs cursor-pointer"
             style={{ backgroundColor: 'var(--accent-primary)' }}
           >
-            <Plus className="w-3.5 h-3.5" /> Add User / Role
+            <Plus className="w-3.5 h-3.5" /> Add User
           </button>
         }
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <KpiCard
-          title="Active Users"
-          value="36 Users"
-          change="100% MFA"
-          trend="up"
-          subtitle="2FA TOTP Enforced"
-          icon={Users}
-        />
-        <KpiCard
-          title="Security Roles (RBAC)"
-          value="8 Roles"
-          change="Granular Matrix"
-          trend="neutral"
-          subtitle="Module:Resource:Action"
-          icon={KeyRound}
-        />
-        <KpiCard
-          title="Operating Branches"
-          value="3 Locations"
-          change="NYC, ISB, LON"
-          trend="neutral"
-          subtitle="Row-level isolation"
-          icon={Building}
-        />
-        <KpiCard
-          title="Number Sequences"
-          value="12 Active"
-          change="Redis Mutex"
-          trend="up"
-          subtitle="Gapless sequential numbering"
-          icon={Hash}
-        />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+        <KpiCard title="Active Users" value="36 Users" change="100% MFA" trend="up" subtitle="2FA TOTP Active" icon={Users} />
+        <KpiCard title="Security Roles" value="8 Roles" change="RBAC" trend="neutral" subtitle="Granular matrix" icon={KeyRound} />
+        <KpiCard title="Operating Branches" value="3 Branches" change="NYC, ISB, LON" trend="neutral" subtitle="Tenant isolation" icon={Building} />
+        <KpiCard title="Sequences" value="12 Active" change="Redis Mutex" trend="up" subtitle="Gapless generation" icon={Hash} />
       </div>
 
       <DataTable
-        title="Distributed Document Numbering Sequences"
+        title="Document Numbering Sequences"
         subtitle="Atomic counter increments protected by Redis distributed locks"
         icon={Hash}
-        actionText="Configure Sequences"
-        columns={sequenceColumns}
+        actionText="Configure"
+        columns={columns}
         data={sequences}
-        keyExtractor={(item) => item.code}
+        keyExtractor={(r) => r.code}
       />
 
       <AuditFeed items={auditItems} />
