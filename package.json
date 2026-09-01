@@ -1,0 +1,21 @@
+{
+  "name": "enterprise-erp",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Modular Enterprise Resource Planning System",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "db:generate": "npm run db:generate --workspace=@erp/database",
+    "db:push": "npm run db:push --workspace=@erp/database",
+    "db:migrate": "npm run db:migrate --workspace=@erp/database"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3"
+  }
+}

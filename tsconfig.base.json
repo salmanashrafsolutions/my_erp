@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "@erp/shared-types": ["packages/shared-types/src/index.ts"],
+      "@erp/shared-types/*": ["packages/shared-types/src/*"],
+      "@erp/shared-ui": ["packages/shared-ui/src/index.ts"],
+      "@erp/shared-ui/*": ["packages/shared-ui/src/*"],
+      "@erp/database": ["packages/database/src/index.ts"],
+      "@erp/database/*": ["packages/database/src/*"]
+    }
+  }
+}
