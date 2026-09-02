@@ -47,11 +47,16 @@
   - `@erp/shared-types`: Universal DTOs & Zod schemas for all 5 domains.
   - `@erp/database`: Multi-domain Prisma PostgreSQL schema with UUIDv7 PKs.
   - `@erp/shared-ui`: 100% component-driven UI library with 4-theme engine.
-  - `apps/web`: Welcome Landing Page + dedicated module workspaces (`/sales`, `/purchase`, `/inventory`, `/finance`, `/admin`).
-- [ ] **Phase 2: Sales Module Deep Implementation** (Next Step)
-  - `apps/api/src/modules/sales`: NestJS Controllers, Services, DTOs, Event dispatchers.
-  - `apps/web/src/app/sales`: Customer CRM directory, Quotation builder, Sales Orders pipeline with live stock reservation.
-- [ ] **Phase 3: Purchase Module Deep Implementation**
+  - `apps/web`: Welcome Landing Page + dedicated module workspaces.
+- [x] **Phase 2: Sales Module Deep Implementation** (Completed, Verified, Pushed).
+  - `LineItemsTable`: Universal dynamic line items editor with automated formula recalculations.
+  - `Modal`: Accessible dialog modal.
+  - `/sales/customers`: Customer CRM directory, credit limits, payment terms, and Add Customer modal.
+  - `/sales/quotations`: Quotation engine with LineItemsTable and Convert-to-Order workflow.
+  - `/sales/orders`: Orders pipeline with stock reservation lock status, picking, and dispatch.
+  - `/sales/invoices`: Invoicing, AR balance due tracking, and Record Payment modal.
+  - `/sales/returns`: RMA return authorization with restock vs scrap inspection workflows.
+- [ ] **Phase 3: Purchase Module Deep Implementation** (Next Step)
   - Vendor Master, Purchase Requisitions (PR), Purchase Orders (PO), GRN Gate-In, 3-Way Match validation.
 - [ ] **Phase 4: Inventory Module Deep Implementation**
   - SKU Master, Multi-Warehouse/Bin locations, Real-time Stock Ledger, Moving WAC/FIFO costing.
