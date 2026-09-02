@@ -4,6 +4,8 @@ export * from './widgets/MoneyDisplay';
 export * from './widgets/KpiCard';
 export * from './widgets/AuditFeed';
 export * from './widgets/ThemeSelector';
+export * from './widgets/Modal';
+export * from './forms/LineItemsTable';
 export * from './data-table/DataTable';
 export * from './layouts/AppShell';
 export * from './layouts/PageHeader';
